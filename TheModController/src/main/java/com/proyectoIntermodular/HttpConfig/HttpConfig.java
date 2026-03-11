@@ -12,8 +12,11 @@ public class HttpConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+        .cors(cors -> cors.configure(http))
         .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth.anyRequest().permitAll()
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/uploads/**").permitAll()
+            .anyRequest().permitAll()
         );
     return http.build();
   }

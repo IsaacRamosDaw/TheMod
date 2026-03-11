@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin: 0;
+
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+}
+/* DropDownMenu.css */
+
+
+.logo-header {
+  /* width: 50px; */
+  height: 4vh;
+}
+
+.header-button-login {
+  /* Estructura */
+  display: inline-block;      /* Permite darle padding y ancho a un enlace */
+  padding: 10px 20px;         /* Espaciado interno */
+  text-decoration: none;      /* Quita el subrayado por defecto del enlace */
+  border-radius: 8px;         /* Bordes redondeados */
+  
+  /* Colores y Fuente */
+  background-color: #ff9f43;  /* El tono naranja de la imagen */
+  color: #1a1d21;             /* Texto oscuro para contraste */
+  font-weight: bold;          /* Texto en negrita */
+  font-family: sans-serif;
+  
+  /* Interacción */
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.header-button-login:hover {
+  background-color: #fca466;  /* Un naranja un poco más claro al pasar el ratón */
+}

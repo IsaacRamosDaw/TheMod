@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M76.7858 154.63C107.431 154.63 132.275 130.065 132.275 99.7641C132.275 69.4627 107.431 44.8986 76.7858 44.8986C46.1401 44.8986 21.2969 69.4627 21.2969 99.7641C21.2969 107.428 22.8859 114.724 25.756 121.349L16.0234 149.094L42.9891 143.282C52.3478 150.399 64.0671 154.63 76.7858 154.63Z" style="fill: #FB923C"/>
+    <g style="mix-blend-mode:multiply" filter="url(#filter0_f_5_5918)">
+        <path d="M114.557 158.808C138.197 178.286 169.446 179.408 184.353 161.315C199.26 143.221 192.182 112.764 168.542 93.2861C144.902 73.8083 113.653 72.6861 98.7458 90.7795C83.8383 108.873 90.9173 139.33 114.557 158.808Z" fill="url(#paint0_linear_5_5918)"/>
+    </g>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M174.443 121.331C178.071 114.802 180.137 107.286 180.137 99.2873C180.137 74.1857 159.788 53.8369 134.687 53.8369C109.585 53.8369 89.2363 74.1857 89.2363 99.2873C89.2363 124.389 109.585 144.738 134.687 144.738C143.073 144.738 150.929 142.466 157.673 138.505L182.332 143.82L174.443 121.331Z" fill="url(#paint1_radial_5_5918)"/>
+    <defs>
+        <filter id="filter0_f_5_5918" x="82.9391" y="69.9108" width="117.221" height="112.273" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+            <feGaussianBlur stdDeviation="4" result="effect1_foregroundBlur_5_5918"/>
+        </filter>
+        <linearGradient id="paint0_linear_5_5918" x1="103.993" y1="123.63" x2="196.069" y2="184.615" gradientUnits="userSpaceOnUse">
+            <stop/>
+            <stop offset="1" stop-color="#1D1D21" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="paint1_radial_5_5918" cx="0" cy="0" r="1" gradientTransform="matrix(99.8379 31.9101 -31.9102 99.8376 105.029 74.133)" gradientUnits="userSpaceOnUse">
+            <stop offset="0.365346" stop-color="white"/>
+            <stop offset="0.64903" stop-color="#7D88ED"/>
+            <stop offset="0.748224" stop-color="white"/>
+        </radialGradient>
+    </defs>
+</svg>

@@ -26,15 +26,19 @@ public class UserController {
   @Autowired
   private UserRep userRepository;
 
+  // private final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/";
+
   @PostMapping("/register")
   public ResponseEntity<Map<String, Object>> newUser(@RequestBody User user) {
 
     if (user.getEmail() == null || user.getEmail().isBlank()) {
       return buildErrorResponse("Debe introducir un email");
     }
+
     if (user.getPassword() == null || user.getPassword().isBlank()) {
       return buildErrorResponse("Debe introducir una contraseña");
     }
+
     if (user.getName() == null || user.getName().isBlank()) {
       return buildErrorResponse("Debe introducir un nombre de usuario");
     }

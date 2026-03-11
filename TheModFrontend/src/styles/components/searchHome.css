@@ -1,0 +1,21 @@
+.search-overlay {
+  position: fixed;   /* Fijo en la pantalla, ignora el scroll */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7); /* Oscurece el resto de la web */
+  display: flex;     /* Usamos flex para centrar el cuadro */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;     /* Asegúrate de que sea el número más alto de tu web */
+}
+
+.search-modal {
+  background: white;
+  width: 90%;        /* Casi todo el ancho */
+  max-width: 1200px; /* Pero con un límite para pantallas grandes */
+  height: 80vh;      /* Casi todo el alto */
+  border-radius: 8px;
+  position: relative; 
+}

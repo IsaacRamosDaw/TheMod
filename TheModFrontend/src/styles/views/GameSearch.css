@@ -1,0 +1,47 @@
+.searcher-container {
+  display: flex;
+  background-color: #0f1113;
+  color: #e8e8e8;
+  min-height: 100vh;
+  padding: 20px;
+  gap: 30px;
+}
+
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.filter-group h4 {
+  font-size: 0.75rem;
+  color: #a2a2a2;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.search-input {
+  width: 100%;
+  background: #1a1d21;
+  border: 1px solid #333;
+  padding: 8px;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.apply-btn {
+  width: 100%;
+  background: #333;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}

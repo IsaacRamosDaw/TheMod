@@ -1,0 +1,11 @@
+.header-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Justo debajo del header */
+  left: 0;
+  width: 100vw; /* Ocupa el 100% del ancho de la ventana visual */
+  /* background: white; */
+  border-top: 1px solid #333;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  z-index: 999;
+  color: white;
+}
