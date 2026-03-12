@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
@@ -41,17 +42,22 @@ public class Mod {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
-  @JsonIgnoreProperties("mods")
+  @JsonIgnoreProperties({ "mods", "password", "email", "followers", "following" })
   private User author;
+
+  @ManyToMany
+  @JoinTable(name = "mod_dependencies", joinColumns = @JoinColumn(name = "mod_id"), inverseJoinColumns = @JoinColumn(name = "dependency_id"))
+  @JsonIgnoreProperties({ "dependencies", "packs" })
+  private List<Mod> dependencies = new ArrayList<>();
 
   @Column(nullable = false, updatable = false)
   private LocalDateTime createdAt;
 
   @Column(nullable = false)
   private LocalDateTime updatedAt;
-  
+
   @Column(nullable = false)
-  private int downloads;
+  private int downloads = 0;
 
   public Mod() {
   }
@@ -61,7 +67,6 @@ public class Mod {
     this.description = description;
     this.version = version;
     this.author = author;
-    this.downloads = 0;
   }
 
   public Long getId() {
@@ -118,6 +123,22 @@ public class Mod {
 
   public void removePack(Pack pack) {
     this.packs.remove(pack);
+  }
+
+  public void addDependency(Mod mod) {
+    this.dependencies.add(mod);
+  }
+
+  public void removeDependency(Mod mod) {
+    this.dependencies.remove(mod);
+  }
+
+  public List<Mod> getDependencies() {
+    return dependencies;
+  }
+
+  public void setDependencies(List<Mod> dependencies) {
+    this.dependencies = dependencies;
   }
 
   public LocalDateTime getCreatedAt() {

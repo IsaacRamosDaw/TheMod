@@ -1,5 +1,6 @@
 # Frontend
-
+## Usar seeder para probar todos los modelos y los datos llegan correctamente
+## Crear las páginas con fakeData
 ## Login
 ## Register
 ## Home / Logged - unlogged
@@ -10,3 +11,7 @@
 ### Follows
 ### Add
 ### Games
+
+# Backend
+
+## Comprobar con Postman todos los endpoints

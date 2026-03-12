@@ -1,4 +1,4 @@
-package com.proyectoIntermodular.Exception.community;
+package com.proyectoIntermodular.Exception.Game;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.Map;
 
 @ControllerAdvice
-public class PostNotFoundAdvice {
+public class GameCategoryNotFoundAdvice {
 
   @ResponseBody
-  @ExceptionHandler(PostNotFoundException.class)
+  @ExceptionHandler(GameCategoryNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public Map<String, String> exceptionHandler(PostNotFoundException exception) {
+  public Map<String, String> exceptionHandler(GameCategoryNotFoundException exception) {
     return Map.of("errorMessage", exception.getMessage());
   }
 }

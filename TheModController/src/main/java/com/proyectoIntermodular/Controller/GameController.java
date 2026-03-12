@@ -2,18 +2,28 @@ package com.proyectoIntermodular.Controller;
 
 import com.proyectoIntermodular.Models.Game;
 import com.proyectoIntermodular.Repository.GameRep;
+import com.proyectoIntermodular.Exception.Game.GameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:5173")
@@ -42,8 +52,7 @@ public class GameController {
 
         try {
             String fileName = saveImage(file);
-            Game game = new Game(name, fileName);
-            Game savedGame = gameRepository.save(game);
+            Game savedGame = gameRepository.save(new Game(name, fileName));
 
             return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
                     "success", true,
@@ -68,16 +77,12 @@ public class GameController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getGameById(@PathVariable Long id) {
-        Optional<Game> game = gameRepository.findById(id);
-        if (game.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                    "success", false,
-                    "message", "Juego no encontrado"));
-        }
+        Game game = gameRepository.findById(id)
+                .orElseThrow(() -> new GameNotFoundException(id));
         return ResponseEntity.ok(Map.of(
                 "success", true,
                 "message", "Juego encontrado",
-                "data", game.get()));
+                "data", game));
     }
 
     @PutMapping("/{id}")
@@ -86,17 +91,9 @@ public class GameController {
             @RequestParam("name") String name,
             @RequestParam(value = "image", required = false) MultipartFile file) {
 
-        Optional<Game> gameOptional = gameRepository.findById(id);
+        Game game = gameRepository.findById(id)
+                .orElseThrow(() -> new GameNotFoundException(id));
 
-        if (gameOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                    "success", false,
-                    "message", "Juego no encontrado"));
-        }
-
-        Game game = gameOptional.get();
-
-        // NUEVA VALIDACIÓN: Si el nombre cambia, verificar que el nuevo no esté pillado
         if (!game.getName().equals(name)) {
             if (gameRepository.findByName(name).isPresent()) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of(
@@ -107,15 +104,10 @@ public class GameController {
 
         try {
             game.setName(name);
-
-            // Solo actualizamos la imagen si realmente se envió una nueva
             if (file != null && !file.isEmpty() && !Objects.equals(file.getOriginalFilename(), "default-placeholder")) {
-                // OPCIONAL: Aquí podrías borrar la imagen antigua del disco antes de guardar la
-                // nueva
                 String fileName = saveImage(file);
                 game.setImagePath(fileName);
             }
-
             Game updatedGame = gameRepository.save(game);
             return ResponseEntity.ok(Map.of(
                     "success", true,
@@ -132,9 +124,7 @@ public class GameController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteGame(@PathVariable Long id) {
         if (!gameRepository.existsById(id)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(
-                    "success", false,
-                    "message", "Juego no encontrado"));
+            throw new GameNotFoundException(id);
         }
         gameRepository.deleteById(id);
         return ResponseEntity.ok(Map.of(

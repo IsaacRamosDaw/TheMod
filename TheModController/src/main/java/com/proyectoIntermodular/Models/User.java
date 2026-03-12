@@ -1,6 +1,7 @@
 package com.proyectoIntermodular.Models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,6 +14,9 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -34,8 +38,10 @@ public class User {
   @Column(nullable = false, unique = true)
   private String email;
 
-  public enum Role { ADMIN, USER, MODERATOR };
-  
+  public enum Role {
+    ADMIN, USER, MODERATOR
+  };
+
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private Role role;
@@ -49,6 +55,11 @@ public class User {
   @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
   @JsonIgnoreProperties("author")
   private List<Mod> mods;
+
+  @ManyToMany
+  @JoinTable(name = "followers", joinColumns = @JoinColumn(name = "user"), inverseJoinColumns = @JoinColumn(name = "follower"))
+  @JsonIgnoreProperties("user")
+  private List<User> followers = new ArrayList<>();
 
   public User() {
   }
@@ -124,6 +135,25 @@ public class User {
     this.mods = mods;
   }
 
+  public List<User> getFollowers() {
+    return followers;
+  }
+
+  public void setFollowers(List<User> followers) {
+    this.followers = followers;
+  }
+
+  public void follow(User user) {
+    user.getFollowers().add(this);
+    this.followers.add(user);
+  }
+
+  public void unfollow(User user) {
+    user.getFollowers().remove(this);
+    this.followers.remove(user);
+  }
+
+
   @PreUpdate
   protected void onUpdate() {
     this.updatedAt = LocalDateTime.now();
@@ -133,6 +163,8 @@ public class User {
   protected void onCreate() {
     this.createdAt = LocalDateTime.now();
     this.updatedAt = LocalDateTime.now();
-    if (this.role == null) { this.role = Role.USER; }
+    if (this.role == null) {
+      this.role = Role.USER;
+    }
   }
 }

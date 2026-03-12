@@ -1,4 +1,4 @@
-package com.proyectoIntermodular.Exception.community;
+package com.proyectoIntermodular.Exception.post;
 
 public class PostNotFoundException extends RuntimeException {
 
