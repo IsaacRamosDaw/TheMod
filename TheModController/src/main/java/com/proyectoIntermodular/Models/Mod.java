@@ -65,7 +65,7 @@ public class Mod {
   public Mod(String name, String description, String version, User author) {
     this.name = name;
     this.description = description;
-    this.version = version;
+    this.version = "0.0.O";
     this.author = author;
   }
 
