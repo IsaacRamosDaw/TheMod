@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,6 +25,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
+// @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +63,7 @@ public class User {
   @JsonIgnoreProperties("user")
   private List<User> followers = new ArrayList<>();
 
+  @JsonCreator
   public User() {
   }
 
@@ -79,12 +82,12 @@ public class User {
     this.id = id;
   }
 
-  public String getName() {
+  public String getUsername() {
     return username;
   }
 
-  public void setName(String name) {
-    this.username = name;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPassword() {
@@ -152,7 +155,6 @@ public class User {
     user.getFollowers().remove(this);
     this.followers.remove(user);
   }
-
 
   @PreUpdate
   protected void onUpdate() {

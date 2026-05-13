@@ -25,7 +25,6 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("/api/mod")
 public class ModController {
 
@@ -40,12 +39,13 @@ public class ModController {
     if (mod.getName() == null || mod.getName().isBlank()) {
       return buildErrorResponse("El mod debe tener un nombre");
     }
+    if (mod.getTitle() == null || mod.getTitle().isBlank()) {
+      return buildErrorResponse("El mod debe tener un título");
+    }
     if (mod.getDescription() == null || mod.getDescription().isBlank()) {
       return buildErrorResponse("El mod debe tener una descripción");
     }
-    if (mod.getVersion() == null || mod.getVersion().isBlank()) {
-      return buildErrorResponse("El mod debe tener una versión");
-    }
+
     if (mod.getAuthor() == null || mod.getAuthor().getId() == null) {
       return buildErrorResponse("Es necesario especificar un ID de autor válido");
     }
@@ -114,12 +114,13 @@ public class ModController {
     if (newMod.getName() == null || newMod.getName().isBlank()) {
       return buildErrorResponse("El mod debe tener un nombre");
     }
+    if (newMod.getTitle() == null || newMod.getTitle().isBlank()) {
+      return buildErrorResponse("El mod debe tener un título");
+    }
     if (newMod.getDescription() == null || newMod.getDescription().isBlank()) {
       return buildErrorResponse("El mod debe tener una descripción");
     }
-    if (newMod.getVersion() == null || newMod.getVersion().isBlank()) {
-      return buildErrorResponse("El mod debe tener una versión");
-    }
+
 
     java.util.Optional<Mod> existingMod = modRepository.findByName(newMod.getName());
     if (existingMod.isPresent() && !existingMod.get().getId().equals(id)) {
@@ -135,8 +136,8 @@ public class ModController {
     Mod updatedMod = modRepository.findById(id)
         .map(mod -> {
           mod.setName(newMod.getName());
+          mod.setTitle(newMod.getTitle());
           mod.setDescription(newMod.getDescription());
-          mod.setVersion(newMod.getVersion());
           return modRepository.save(mod);
         }).orElseThrow(() -> new ModNotFoundException(id));
     

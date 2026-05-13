@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
 @RequestMapping("/api/pack")
 public class PackController {
 

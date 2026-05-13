@@ -31,18 +31,18 @@ public class Mod {
   @Column(nullable = false, unique = true)
   private String name;
 
+  @Column(nullable = false)
+  private String title;
+
   @Column(nullable = false, columnDefinition = "TEXT")
   private String description;
-
-  @Column(nullable = false)
-  private String version;
 
   @ManyToMany(mappedBy = "mods")
   private List<Pack> packs = new ArrayList<>();
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
-  @JsonIgnoreProperties({ "mods", "password", "email", "followers", "following" })
+  @JsonIgnoreProperties({ "mods", "password", "email", "followers" })
   private User author;
 
   @ManyToMany
@@ -62,10 +62,10 @@ public class Mod {
   public Mod() {
   }
 
-  public Mod(String name, String description, String version, User author) {
+  public Mod(String name, String title, String description, User author) {
     this.name = name;
+    this.title = title;
     this.description = description;
-    this.version = "0.0.O";
     this.author = author;
   }
 
@@ -85,20 +85,20 @@ public class Mod {
     this.name = name;
   }
 
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
   public String getDescription() {
     return description;
   }
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
   }
 
   public User getAuthor() {

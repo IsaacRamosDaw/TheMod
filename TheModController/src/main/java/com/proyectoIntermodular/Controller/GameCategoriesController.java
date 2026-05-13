@@ -22,8 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
-@RequestMapping("/api/category")
+@RequestMapping("/api/game-category")
 public class GameCategoriesController {
 
 	@Autowired

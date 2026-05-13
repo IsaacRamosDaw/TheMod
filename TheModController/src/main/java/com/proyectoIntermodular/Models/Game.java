@@ -21,8 +21,8 @@ public class Game {
   @Column(nullable = false, unique = true)
   private String name;
 
-  @Column(nullable = false)
-  private String imagePath;
+  // @Column(nullable = false)
+  // private String imagePath;
 
   @Column(nullable = false, updatable = false)
   private LocalDateTime createdAt;
@@ -31,17 +31,17 @@ public class Game {
   private LocalDateTime updatedAt;
 
   @Column(nullable = false)
-  private Integer downloads;
+  private int downloads;
 
   @Column(nullable = false)
-  private Integer packs;
+  private int packs;
 
   public Game() {
   }
 
-  public Game(String name, String imagePath) {
+  public Game(String name) {
     this.name = name;
-    this.imagePath = imagePath;
+    // this.imagePath = imagePath;
     this.downloads = 0;
     this.packs = 0;
   }
@@ -62,13 +62,13 @@ public class Game {
     this.name = name;
   }
 
-  public String getImagePath() {
-    return imagePath;
-  }
+  // public String getImagePath() {
+  //   return imagePath;
+  // }
 
-  public void setImagePath(String imagePath) {
-    this.imagePath = imagePath;
-  }
+  // public void setImagePath(String imagePath) {
+  //   this.imagePath = imagePath;
+  // }
 
   public LocalDateTime getCreatedAt() {
     return createdAt;
@@ -78,11 +78,11 @@ public class Game {
     return updatedAt;
   }
 
-  public Integer getDownloads() {
+  public int getDownloads() {
     return downloads;
   }
 
-  public void setDownloads(Integer downloads) {
+  public void setDownloads(int downloads) {
     this.downloads = downloads;
   }
 
@@ -90,15 +90,11 @@ public class Game {
     this.downloads++;
   }
 
-  public void decrementDownloads() {
-    this.downloads--;
-  }
-
-  public Integer getPacks() {
+  public int getPacks() {
     return packs;
   }
 
-  public void setPacks(Integer packs) {
+  public void setPacks(int packs) {
     this.packs = packs;
   }
 
